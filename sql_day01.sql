@@ -264,16 +264,178 @@ SELECT e.EMPNO
 */
 ///////////////////////////////////////////////////////////////////////////////////////
 
+//실습 1) emp테이블에서 사번, 이름, 업무, 급여 컬럼을 조회하고 급여가 많은 순서대로 정렬(정렬순서는 따로 정해져있지 않으므로 기본값으로 하겠음)
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.JOB
+      ,e.COMM
+ FROM emp e
+ORDER BY e.COMM
+;
+ /*    EMPNO ENAME      JOB             COMM
+---------- ---------- --------- ----------
+      7844 TURNER     SALESMAN           0
+      7499 ALLEN      SALESMAN         300
+      7521 WARD       SALESMAN         500
+      7654 MARTIN     SALESMAN        1400
+      7839 KING       PRESIDENT           
+      7900 JAMES      CLERK               
+      7902 FORD       ANALYST             
+      7782 CLARK      MANAGER             
+      7934 MILLER     CLERK               
+      7566 JONES      MANAGER             
+      7369 SMITH      CLERK               
+
+     EMPNO ENAME      JOB             COMM
+---------- ---------- --------- ----------
+      7698 BLAKE      MANAGER             
+*/
+
+//실습2) emp 테이블에서 사번, 이름, 입사일 컬럼을 조회하고 입사일이 빠른 순서대로 정렬
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.HIREDATE
+ FROM emp e
+ ORDER BY e.HIREDATE
+ ;
+/*     EMPNO ENAME      HIREDATE
+---------- ---------- --------
+      7369 SMITH      80/12/17
+      7499 ALLEN      81/02/20
+      7521 WARD       81/02/22
+      7566 JONES      81/04/02
+      7698 BLAKE      81/05/01
+      7782 CLARK      81/06/09
+      7844 TURNER     81/09/08
+      7654 MARTIN     81/09/28
+      7839 KING       81/11/17
+      7900 JAMES      81/12/03
+      7902 FORD       81/12/03
+
+     EMPNO ENAME      HIREDATE
+---------- ---------- --------
+      7934 MILLER     82/01/23
+ */
+ 
+//실습3) emp 테이블에서 수당이 적은 순서대로 사번,이름,수당 칼럼을 조회
+ SELECT e.EMPNO
+      ,e.ENAME
+      ,e.COMM
+  FROM emp e
+ORDER BY e.COMM 
+;
+ /*
+EMPNO ENAME            COMM
+---------- ---------- ----------
+      7844 TURNER              0
+      7499 ALLEN             300
+      7521 WARD              500
+      7654 MARTIN           1400
+      7839 KING                 
+      7900 JAMES                
+      7902 FORD                 
+      7782 CLARK                
+      7934 MILLER               
+      7566 JONES                
+      7369 SMITH                
+
+     EMPNO ENAME            COMM
+---------- ---------- ----------
+      7698 BLAKE                
+*/
+
+//실습 4) emp 테이블에서 수당이 큰 순서대로 사번, 이름, 수당 칼럼을 조회
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.COMM
+  FROM emp e
+ORDER BY e.COMM DESC
+;
+/*
+     EMPNO ENAME            COMM
+---------- ---------- ----------
+      7369 SMITH                
+      7698 BLAKE                
+      7902 FORD                 
+      7900 JAMES                
+      7839 KING                 
+      7566 JONES                
+      7934 MILLER               
+      7782 CLARK                
+      7654 MARTIN           1400
+      7521 WARD              500
+      7499 ALLEN             300
+
+     EMPNO ENAME            COMM
+---------- ---------- ----------
+      7844 TURNER              0
+ */
+ 
+ //실습 5) emp 테이블의 모든 정보 조회
+ SELECT *
+  FROM emp
+;
+/*
+      EMPNO ENAME      JOB              MGR HIREDATE        SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- -------- ---------- ---------- ----------
+      7369 SMITH      CLERK           7902 80/12/17        800                    20
+      7499 ALLEN      SALESMAN        7698 81/02/20       1600        300         30
+      7521 WARD       SALESMAN        7698 81/02/22       1250        500         30
+      7566 JONES      MANAGER         7839 81/04/02       2975                    20
+      7654 MARTIN     SALESMAN        7698 81/09/28       1250       1400         30
+      7698 BLAKE      MANAGER         7839 81/05/01       2850                    30
+      7782 CLARK      MANAGER         7839 81/06/09       2450                    10
+      7839 KING       PRESIDENT            81/11/17       5000                    10
+      7844 TURNER     SALESMAN        7698 81/09/08       1500          0         30
+      7900 JAMES      CLERK           7698 81/12/03        950                    30
+      7902 FORD       ANALYST         7566 81/12/03       3000                    20
+
+     EMPNO ENAME      JOB              MGR HIREDATE        SAL       COMM     DEPTNO
+---------- ---------- --------- ---------- -------- ---------- ---------- ----------
+      7934 MILLER     CLERK           7782 82/01/23       1300                    10
+ */
+ 
+ //실습 7) emp테이블에서 직원 이름이 ALLEN인 사람의 모든 정보 조회
+
+ //12 테이블에 붙이는 별칭을 주지 않았을때
+SELECT EMPNO
+ FROM emp
+ ;
+ SELECT emp.EMPNO
+ FROM emp
+ ;
+ 
+ //13) 영문별칭 사용시 특수기호 _ 사용하는 경우
+ SELECT e.EMPNO Employee_No // 무조건 소문자로만 나온다
+       ,e.ENAME "Employee Name" // 큰따옴표 안에 적은 대소문자 구분대로 출력
+       FROM emp e
+       ;
+       
+       //14) 별칭과 정렬의 조합 : SELECT 절에 별칭을 준 경우 ORDER BY 절에서 사용가능
+       // emp 테이블에서 사번, 이름, 직무,입사일 ,커미션을 조회할때
+       //각 컬럼에 대해서 한글 별칭을 주어 조회
+       // 정렬은 커미션, 직무, 이름을 오름차순 정렬
+       SELECT e.사번
+             ,e.ENAME 이름
+             ,e.JOB 직무
+             ,e.HIREDATE 입사일
+             ,e.COMM 커미션
+             FROM emp e
+             ORDER BY 커미션,직무,이름
+             ;
+             
+             //15)DISTINCT 별칭,정렬의 조합
+            //OB을 중복을 제거하여 직무라는 별칭을 조회하고
+            //내림차순으로 정렬
+            SELECT e.JOB 직무
+            FROM emp e
+            ORDER BY 직무 DESC
+            ;
+            
+            
+             
 
 
-      
-
-
-
-
-      
-         
-      
       
       
       

@@ -396,7 +396,10 @@ ORDER BY e.COMM DESC
  */
  
  //실습 7) emp테이블에서 직원 이름이 ALLEN인 사람의 모든 정보 조회
-
+SELECT e.ENAME
+FROM emp e
+WHERE e.ENAME = ALLEN
+;
  //12 테이블에 붙이는 별칭을 주지 않았을때
 SELECT EMPNO
  FROM emp
@@ -432,10 +435,118 @@ SELECT EMPNO
             ORDER BY 직무 DESC
             ;
             
-            
-             
+            //(5) WHERE 조건절
+            //16) emp테이블에서 empno 가 7900인 사원의 사번,이름,직무,입사일,그여,부서번호까지만 조회
+            SELECT e.EMPNO
+                ,e.ENAME
+                ,e.JOB
+                ,e.HIREDATE
+                ,e.SAL
+                ,e.DEPTNO
+            FROM emp e
+             WHERE e.EMPNO = 7900
+             ;
+/*
+  EMPNO ENAME      JOB       HIREDATE        SAL     DEPTNO
+---------- ---------- --------- -------- ---------- ----------
+      7900 JAMES      CLERK     81/12/03        950         30
+
+*/
+
+//17) emp 테이블에서 empno는 7900이거나 deptno가 20인 직원의 정보를 ㅈ회
+// 사번,이름,직무,입사일,급여,부서번호 조회
+SELECT e.EMPNO
+     ,e.ENAME
+     ,e.JOB
+     ,e.HIREDATE
+     ,e.SAL
+     ,e.DEPTNO
+ FROM emp e
+      WHERE e.EMPNO = 7900
+      OR e.COMM = 20
+      ;
+      
+ /*    EMPNO ENAME      JOB       HIREDATE        SAL     DEPTNO
+---------- ---------- --------- -------- ---------- ----------
+      7900 JAMES      CLERK     81/12/03        950         30
 
 
-      
-      
-      
+     EMPNO ENAME      JOB       HIREDATE        SAL     DEPTNO
+---------- ---------- --------- -------- ---------- ----------
+      7900 JAMES      CLERK     81/12/03        950         30
+
+    */  
+///////////////////////////////////////////////////////////////////////////////////////  
+
+//18) 17번의 조회조건을 AND 조건으로 조합
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.JOB
+      ,e.HIREDATE
+      ,e.SAL
+      ,e.DEPTNO
+ FROM emp e
+ WHERE e.ENPNO = 7900
+ AND e.DEPTNO = 20
+ ;
+ 
+ //
+/* SELECT e.EMPNO
+       ,e.ENAME
+       ,e.JOB
+       ,e.HIREDATE
+       ,e.SAL
+       ,e.COMM
+       ,e.DEPTNO
+  FROM emp e
+  WHERE e.ENAME = 'ALLEN'
+  */
+/*SELECT e.EMPNO
+      ,e.ENAME
+      ,e.DEPTNO
+FROM emp e
+WHERE e.DEPTNO = 20
+*/
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.COMM
+      ,e.DEPTNO
+FROM emp e
+WHERE e.DEPTNO = '20'
+AND e.COMM < '3000'
+;
+
+//19)  JOB이 CLERK이면서 DEPTNO 가 10인 직원의 사번, 이름, 직무, 부서번호를 조회
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.JOB
+      ,e.DEPTNO
+      FROM emp e
+      WHERE e.JOB = 'CLERK'
+      AND e.DEPTNO = 10
+      ;
+      /*
+           EMPNO ENAME      JOB           DEPTNO
+---------- ---------- --------- ----------
+      7934 MILLER     CLERK             10
+*/
+
+//20)19번에서 직무 비교 값을 소문자 CLERK 과 비교하여 결과를 확인
+SELECT e.EMPNO
+      ,e.ENAME
+      ,e.JOB
+      ,e.DEPTNO
+FROM emp e
+WHERE e.JOB = 'clerk'
+AND e.DEPTNO = 10
+;
+/*선택된 행 없음*/
+///////////////////////////////////////////////////////////////////////////////////////
+
+SELECT e.EMPNO as 사번
+      ,e.ENAME as 이름
+      ,e.SAL as 급여
+      ,e.SAL * 0.033 as 원천징수세금
+FROM emp e
+;
+
